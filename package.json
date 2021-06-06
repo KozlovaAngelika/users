@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Kozlova Angelika <kozlovaangelika09@gmail.com>",
   "license": "ISC",
