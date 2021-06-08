@@ -7,6 +7,9 @@ import {
 const PORT = config.get('port') || 3000;
 const app = express();
 
+app.use(express.json({
+    extended: true
+}));
 app.use('/api/auth', authRouter);
 
 async function start() {
@@ -16,7 +19,7 @@ async function start() {
             useUnifiedTopology: true
         });
         app.listen(PORT, () => {
-            console.log('App has been started on port `${PORT}`');
+            console.log(`App has been started on port ${PORT}`);
         })
     } catch (e) {
         console.log(`Server error,${e.message}`)

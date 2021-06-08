@@ -5,10 +5,12 @@ import Col from "react-bootstrap/Col";
 import { Button, Form, Card } from "react-bootstrap";
 import style from "./Authorization.module.scss";
 import { NavLink } from "react-router-dom";
+import img from "../../media/decorate.png";
 
 export const Authorization = () => {
   return (
     <Container>
+      <img src={img} className="image" alt="decorate img"></img>
       <Row>
         <Col>
           <Card>

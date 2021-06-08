@@ -1,24 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Button, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { useHttp } from "../../../hooks/http.hook";
+import style from "./SignUp.module.scss";
+import { header } from "express-validator";
 
 export const SignUp = () => {
+  const { loading, request, error } = useHttp();
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
+  useEffect(() => {}, [error]);
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
+  };
+  const signUpHandler = async () => {
+    try {
+      const data = await request("/api/auth/register", "POST", { ...form });
+    } catch (e) {}
   };
   return (
     <Container>
       <Row>
         <Col>
-          <Form>
+          <Form className={style.form}>
             <Form.Group controlId="formBasicName">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -47,11 +57,18 @@ export const SignUp = () => {
                 onChange={changeHandler}
               />
             </Form.Group>
-            <Button className="button" type="submit">
-              Sign up
-            </Button>
-            <div>
-              <NavLink to="./sign_in">Sign in</NavLink>
+            <div className="wr-buttons">
+              <Button
+                className="button"
+                type="submit"
+                onClick={signUpHandler}
+                disabled={loading}
+              >
+                Sign up
+              </Button>
+              <div>
+                <NavLink to="./sign_in">Sign in</NavLink>
+              </div>
             </div>
           </Form>
         </Col>

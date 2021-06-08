@@ -19,7 +19,19 @@ a {
         text-decoration: none;
     }
 }
+.image{
+    position: fixed;
+    left:75px;
+    top: 75px;
+    object-fit: cover;
+    object-position: center;
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+}
 .button{
+    min-width: 80px;
     background-color: $button;
     border-color: $button-hover;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -42,7 +54,9 @@ a {
     align-items: center;
 }
 form {
+    position: relative;
     max-width: 650px;
+    height: 390px;
     margin: 0 auto;
     border-radius: 20px;
     padding: 35px;
@@ -66,4 +80,9 @@ form {
 }
 .card-title{
     color:$main;
+}
+.wr-buttons{
+    position: absolute;
+    left:30px;
+    bottom: 20px;
 }

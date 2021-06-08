@@ -5,7 +5,7 @@ const UserSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
     email: {
         type: String,
@@ -17,17 +17,18 @@ const UserSchema = new Schema({
         required: true
     },
     registrationDate: {
-        type: Date,
+        type: String,
         required: true
     },
     lastLoginDate: {
-        type: Date,
+        type: String,
         required: true
     },
     status: {
         type: String,
-        require: true
+        require: false
     }
 });
 
 const User = mongoose.model('User', UserSchema);
+export default User;
