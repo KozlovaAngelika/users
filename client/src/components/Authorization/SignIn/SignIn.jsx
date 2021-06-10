@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import { useHttp } from "../../../hooks/http.hook";
 import style from "./SignIn.module.scss";
 import { AuthContext } from "../../../context/AuthContext";
+import { Notice } from "../Notice/Notice";
 
 export const SignIn = () => {
   const auth = useContext(AuthContext);
@@ -28,7 +29,7 @@ export const SignIn = () => {
     }
   };
   return (
-    <Container>
+    <Container className={style.container}>
       <Row>
         <Col>
           <Form className={style.form}>
@@ -65,15 +66,7 @@ export const SignIn = () => {
               </div>
             </div>
           </Form>
-          <Toast
-            onClose={() => setShow(false)}
-            show={show}
-            delay={4000}
-            autohide
-          >
-            <Toast.Header>Error</Toast.Header>
-            <Toast.Body>{error}</Toast.Body>
-          </Toast>
+          <Notice error={error} show={show} setShow={setShow}></Notice>
         </Col>
       </Row>
     </Container>

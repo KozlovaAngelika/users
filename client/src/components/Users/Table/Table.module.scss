@@ -1,0 +1,12 @@
+@import "./../../../App.scss";
+.container{
+    background-color: $white;
+    height: 700px;
+    padding: 25px;
+    box-sizing:border-box;
+    overflow-y: scroll;
+    box-shadow: 0 0 10px $main;
+    &::-webkit-scrollbar {
+        width:0px
+    }
+}

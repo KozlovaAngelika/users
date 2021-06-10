@@ -19,7 +19,6 @@ function App() {
         logout,
         userId,
         isAuthorized,
-        isRegistreted,
       }}
     >
       <BrowserRouter>

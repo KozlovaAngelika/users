@@ -1,10 +1,12 @@
 import React from "react";
+import { ControlPanel } from "./ControlPanel/ControlPanel";
 import style from "./Users.module.scss";
-
+import { Table } from "./Table/Table";
 export const Users = () => {
   return (
-    <div>
-      <h1>Users</h1>
+    <div className={style.users}>
+      <ControlPanel></ControlPanel>
+      <Table></Table>
     </div>
   );
 };

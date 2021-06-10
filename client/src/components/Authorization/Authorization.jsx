@@ -2,14 +2,14 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Button, Form, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import style from "./Authorization.module.scss";
 import { NavLink } from "react-router-dom";
 import img from "../../media/decorate.png";
 
 export const Authorization = () => {
   return (
-    <Container>
+    <Container className={style.container}>
       <img src={img} className="image" alt="decorate img"></img>
       <Row>
         <Col>

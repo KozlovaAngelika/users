@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -7,18 +7,17 @@ import { NavLink } from "react-router-dom";
 import { useHttp } from "../../../hooks/http.hook";
 import style from "./SignUp.module.scss";
 import { useHistory } from "react-router-dom";
-import { Error } from "mongoose";
+import { Notice } from "../Notice/Notice";
 
 export const SignUp = () => {
   const history = useHistory();
-  const [show, setShow] = useState(false);
   const { loading, request, error, clearError } = useHttp();
+  const [show, setShow] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
-
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
@@ -26,14 +25,12 @@ export const SignUp = () => {
     try {
       const data = await request("/api/auth/register", "POST", { ...form });
       history.push("/sign_in");
-      setShow(true);
     } catch (e) {
       setShow(true);
-      clearError();
     }
   };
   return (
-    <Container>
+    <Container className={style.container}>
       <Row>
         <Col>
           <Form className={style.form}>
@@ -79,19 +76,7 @@ export const SignUp = () => {
               </div>
             </div>
           </Form>
-          <Toast
-            onClose={() => setShow(false)}
-            show={show}
-            delay={4000}
-            autohide
-          >
-            <Toast.Header>{error ? "Error" : "Message"}</Toast.Header>
-            <Toast.Body>
-              {error
-                ? `${error}`
-                : "Registration completed successfully.Please sign in"}
-            </Toast.Body>
-          </Toast>
+          <Notice error={error} show={show} setShow={setShow}></Notice>
         </Col>
       </Row>
     </Container>

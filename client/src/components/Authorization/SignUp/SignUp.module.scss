@@ -1,4 +1,10 @@
 @import "./../../../App.scss";
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 .form{
     position: relative;
 }

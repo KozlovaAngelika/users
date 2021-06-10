@@ -6,6 +6,7 @@ $button-hover: rgba(0, 87, 190, 0.1);
 $error:rgb(221, 58, 58);
 body{
     background-color:$bg;
+    // overflow-x: hidden;
 }
 h1{
     margin-bottom: 50px;
@@ -43,17 +44,7 @@ a {
             color:$button;
     }
 }
-.app{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 form {
     position: relative;
     max-width: 650px;
