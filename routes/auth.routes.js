@@ -82,7 +82,7 @@ authRouter.post('/login', [
     async (req, res) => {
         try {
             const errors = validationResult(req);
-            if (!errors.isEmpty) {
+            if (!errors.isEmpty()) {
                 return res.status(400).json({
                     errors: errors.array(),
                     message: "Data is incorrect"
@@ -100,7 +100,7 @@ authRouter.post('/login', [
                     message: "User isn`t found"
                 })
             }
-            const isMatch = await bcrypt.compare(password, userPassword);
+            const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
                 return res.status(400).json({
                     message: "Invalid password. Try again."
@@ -113,7 +113,7 @@ authRouter.post('/login', [
             })
             res.json({
                 token,
-                userId
+                userId: user.id
             })
 
         } catch (e) {

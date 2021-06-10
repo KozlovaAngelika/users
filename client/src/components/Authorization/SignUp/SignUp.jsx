@@ -2,27 +2,35 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Toast } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useHttp } from "../../../hooks/http.hook";
 import style from "./SignUp.module.scss";
-import { header } from "express-validator";
+import { useHistory } from "react-router-dom";
+import { Error } from "mongoose";
 
 export const SignUp = () => {
-  const { loading, request, error } = useHttp();
+  const history = useHistory();
+  const [show, setShow] = useState(false);
+  const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
-  useEffect(() => {}, [error]);
+
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
-  const signUpHandler = async () => {
+  const signUpHandler = async (event) => {
     try {
       const data = await request("/api/auth/register", "POST", { ...form });
-    } catch (e) {}
+      history.push("/sign_in");
+      setShow(true);
+    } catch (e) {
+      setShow(true);
+      clearError();
+    }
   };
   return (
     <Container>
@@ -71,6 +79,19 @@ export const SignUp = () => {
               </div>
             </div>
           </Form>
+          <Toast
+            onClose={() => setShow(false)}
+            show={show}
+            delay={4000}
+            autohide
+          >
+            <Toast.Header>{error ? "Error" : "Message"}</Toast.Header>
+            <Toast.Body>
+              {error
+                ? `${error}`
+                : "Registration completed successfully.Please sign in"}
+            </Toast.Body>
+          </Toast>
         </Col>
       </Row>
     </Container>

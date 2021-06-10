@@ -1,17 +1,31 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { useRoutes } from "./routers";
 import "./App.scss";
+import { AuthContext } from "./context/AuthContext";
+import { useAuth } from "./hooks/auth.hook";
+
 function App() {
-  const routes = useRoutes(false);
+  const { token, login, logout, userId } = useAuth();
+  const isAuthorized = !!token;
+  const isRegistreted = false;
+  const routes = useRoutes(isAuthorized);
   return (
-    <BrowserRouter>
-      <div className="app">{routes}</div>
-    </BrowserRouter>
+    <AuthContext.Provider
+      value={{
+        token,
+        login,
+        logout,
+        userId,
+        isAuthorized,
+        isRegistreted,
+      }}
+    >
+      <BrowserRouter>
+        <div className="app"> {routes} </div>{" "}
+      </BrowserRouter>{" "}
+    </AuthContext.Provider>
   );
 }
 
