@@ -122,3 +122,7 @@ authRouter.post('/login', [
             })
         }
     })
+authRouter.get('/users', [],
+    async (req, res) => {
+        const user = await User.find();
+    })
