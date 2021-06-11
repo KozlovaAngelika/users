@@ -138,3 +138,22 @@ authRouter.get('/users', [],
             })
         }
     })
+authRouter.delete('/users', [],
+    async (req, res) => {
+        try {
+            const ids = req.body;
+            await User.deleteMany({
+                _id: {
+                    $in: ids
+                }
+            });
+            res.status(200).json({
+                message: 'ok'
+            })
+        } catch (e) {
+            console.log(e);
+            res.status(500).json({
+                message: 'Error. Try again'
+            })
+        }
+    })

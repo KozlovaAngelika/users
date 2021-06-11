@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./User.module.scss";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 export const User = (props) => {
+  const handlerChecked = () => {
+    props.user.checked = !props.user.checked;
+  };
   return (
-    <Row className={style.user} checked={false}>
+    <Row className={style.user}>
       <Col md={1} className={style.choose}>
-        <input type="checkbox"></input>
+        <input type="checkbox" onChange={handlerChecked}></input>
       </Col>
-      <Col md={2}>{props.id}</Col>
-      <Col md={2}>{props.name}</Col>
-      <Col md={3}>{props.email}</Col>
+      <Col md={2}>{props.user.id}</Col>
+      <Col md={2}>{props.user.name}</Col>
+      <Col md={3}>{props.user.email}</Col>
       <Col md={2} className={style.registrationDate}>
-        {props.registrationDate}
+        {props.user.registrationDate}
       </Col>
       <Col md={2} className={style.lastLoginDate}>
-        {props.lastLoginDate ? props.lastLoginDate : "-"}
+        {props.user.lastLoginDate ? props.user.lastLoginDate : "-"}
       </Col>
     </Row>
   );
