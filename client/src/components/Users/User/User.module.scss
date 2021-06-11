@@ -1,0 +1,21 @@
+@import "./../../../App.scss";
+.user{
+    background-color: #eee;
+    transition: all 0.3s ease;
+    &:hover{
+        background-color: rgb(177, 177, 177);
+    }
+    margin: 5px;
+    div{
+       overflow-x: hidden;
+       text-overflow:  ellipsis;
+    }
+}
+.lastLoginDate,.choose,.registrationDate{
+    text-align: center;
+}
+@media(max-width:766px){
+    .lastLoginDate,.choose,.registrationDate{
+        text-align: start;
+    }
+}

@@ -6,7 +6,42 @@ import { useHttp } from "../../../hooks/http.hook";
 import { User } from "../User/User";
 export const Table = (props) => {
   const userElements = props.users.map((user) => {
-    return <User></User>;
+    return (
+      <User
+        id={user._id}
+        email={user.email}
+        name={user.name}
+        registrationDate={user.registrationDate}
+        lastLoginDate={user.lastLoginDate}
+        key={user._id}
+      ></User>
+    );
   });
-  return <Col className={style.container}>{userElements}</Col>;
+  return (
+    <Row className={style.container}>
+      <Col>
+        <Row className={style.tableHead}>
+          <Col md={1}>
+            <span>Choose</span>
+          </Col>
+          <Col md={2}>
+            <span>Id</span>
+          </Col>
+          <Col md={2}>
+            <span>Name</span>
+          </Col>
+          <Col md={3}>
+            <span>Email</span>
+          </Col>
+          <Col md={2}>
+            <span>Registration date</span>
+          </Col>
+          <Col md={2}>
+            <span>Last login date</span>
+          </Col>
+        </Row>
+        {userElements}
+      </Col>
+    </Row>
+  );
 };

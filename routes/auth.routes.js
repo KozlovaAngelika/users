@@ -13,6 +13,18 @@ import config from "config";
 
 export const authRouter = Router();
 
+const formatDate = (date) => {
+
+    let dd = date.getDate();
+    if (dd < 10) dd = '0' + dd;
+
+    let mm = date.getMonth() + 1;
+    if (mm < 10) mm = '0' + mm;
+
+    let yy = date.getFullYear() % 100;
+    if (yy < 10) yy = '0' + yy;
+    return `${dd}.${mm}.${yy}`;
+}
 authRouter.post('/register',
     [
         check('email', 'email is not correct').isEmail(),
@@ -43,25 +55,13 @@ authRouter.post('/register',
                 })
             }
             const hashedPassword = await bcrypt.hash(password, 12);
-            const formatDate = (date) => {
-
-                let dd = date.getDate();
-                if (dd < 10) dd = '0' + dd;
-
-                let mm = date.getMonth() + 1;
-                if (mm < 10) mm = '0' + mm;
-
-                let yy = date.getFullYear() % 100;
-                if (yy < 10) yy = '0' + yy;
-                return `${dd}.${mm}.${yy}`;
-            }
             const signUpDate = formatDate(new Date());
             const user = new User({
                 name: name,
                 email: email,
                 password: hashedPassword,
                 registrationDate: signUpDate,
-                lastLoginDate: signUpDate,
+                lastLoginDate: null,
             })
             await user.save();
             res.status(200).json({
@@ -106,6 +106,10 @@ authRouter.post('/login', [
                     message: "Invalid password. Try again."
                 })
             }
+            user.lastLoginDate = formatDate(new Date());
+
+            await User.findByIdAndUpdate(user._id, user)
+
             const token = jwt.sign({
                 userId: user.id
             }, config.get("jwtSecret"), {
@@ -116,6 +120,7 @@ authRouter.post('/login', [
                 userId: user.id
             })
 
+
         } catch (e) {
             res.status(500).json({
                 message: 'Error. Try again'
@@ -124,5 +129,12 @@ authRouter.post('/login', [
     })
 authRouter.get('/users', [],
     async (req, res) => {
-        const user = await User.find();
+        try {
+            const users = await User.find();
+            return res.json(users)
+        } catch (e) {
+            res.status(500).json({
+                message: 'Error. Try again'
+            })
+        }
     })

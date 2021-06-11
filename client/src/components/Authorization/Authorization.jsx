@@ -10,7 +10,7 @@ import img from "../../media/decorate.png";
 export const Authorization = () => {
   return (
     <Container className={style.container}>
-      <img src={img} className="image" alt="decorate img"></img>
+      <img src={img} className={style.image} alt="decorate img"></img>
       <Row>
         <Col>
           <Card>

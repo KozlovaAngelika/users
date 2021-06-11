@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Button, Form, Toast } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useHttp } from "../../../hooks/http.hook";
 import style from "./SignUp.module.scss";
