@@ -24,9 +24,9 @@ const UserSchema = new Schema({
         type: String,
         required: false
     },
-    status: {
-        type: String,
-        require: false
+    isBlock: {
+        type: Boolean,
+        require: true
     }
 });
 

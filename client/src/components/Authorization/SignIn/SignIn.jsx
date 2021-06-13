@@ -8,6 +8,7 @@ import { useHttp } from "../../../hooks/http.hook";
 import style from "./SignIn.module.scss";
 import { AuthContext } from "../../../context/AuthContext";
 import { Notice } from "../Notice/Notice";
+import { sha3_256 } from "js-sha3";
 
 export const SignIn = () => {
   const auth = useContext(AuthContext);
@@ -17,11 +18,13 @@ export const SignIn = () => {
     email: "",
     password: "",
   });
+  const storageName = 'userData';
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
   const signInHandler = async () => {
     try {
+      form.password = sha3_256(form.password);
       const data = await request("/api/auth/login", "POST", { ...form });
       auth.login(data.token, data.userId);
     } catch (e) {

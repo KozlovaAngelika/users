@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 import config from "config";
 
 export const authRouter = Router();
-
+const publicAddresses = ['/register', '/login'];
 const formatDate = (date) => {
 
     let dd = date.getDate();
@@ -25,6 +25,36 @@ const formatDate = (date) => {
     if (yy < 10) yy = '0' + yy;
     return `${dd}.${mm}.${yy}`;
 }
+authRouter.all(
+    '/*', [], async (req, res, next) => {
+        if (!publicAddresses.includes(req.url)) {
+            if (req.headers.authorization) {
+                const userData = JSON.parse(req.headers.authorization);
+
+                jwt.verify(
+                    userData.token,
+                    config.get("jwtSecret"),
+                    async (err, payload) => {
+                        if (err || !payload || userData.userId !== payload.userId) {
+                            return res.status(401).json({
+                                message: 'User is not authorized'
+                            });
+                        }
+                        const user = await User.findById(userData.userId).exec();
+                        if (!user || user.isBlock) {
+                            return res.status(401).json({
+                                message: 'User is blocked or deleted'
+                            });
+                        }
+                        next();
+                    }
+                )
+            }
+        } else {
+            next();
+        }
+    }
+)
 authRouter.post('/register',
     [
         check('email', 'email is not correct').isEmail(),
@@ -62,6 +92,7 @@ authRouter.post('/register',
                 password: hashedPassword,
                 registrationDate: signUpDate,
                 lastLoginDate: null,
+                isBlock: false
             })
             await user.save();
             res.status(200).json({
@@ -76,9 +107,9 @@ authRouter.post('/register',
     })
 
 authRouter.post('/login', [
-        check('email', 'email isn`t correct').normalizeEmail().isEmail(),
-        check('password', 'Enter your password').exists()
-    ],
+    check('email', 'email isn`t correct').normalizeEmail().isEmail(),
+    check('password', 'Enter your password').exists()
+],
     async (req, res) => {
         try {
             const errors = validationResult(req);
@@ -112,9 +143,7 @@ authRouter.post('/login', [
 
             const token = jwt.sign({
                 userId: user.id
-            }, config.get("jwtSecret"), {
-                expiresIn: '1h'
-            })
+            }, config.get("jwtSecret"))
             res.json({
                 token,
                 userId: user.id
@@ -132,6 +161,35 @@ authRouter.get('/users', [],
         try {
             const users = await User.find();
             return res.json(users)
+        } catch (e) {
+            console.log(e);
+            res.status(500).json({
+                message: 'Error. Try again'
+            })
+        }
+    })
+authRouter.post('/users/block', [],
+    async (req, res) => {
+        try {
+            const ids = req.body;
+            await User.updateMany({ _id: { $in: ids } }, { isBlock: true });
+            res.status(200).json({
+                message: 'ok'
+            })
+        } catch (e) {
+            res.status(500).json({
+                message: 'Error. Try again'
+            })
+        }
+    })
+authRouter.post('/users/unblock', [],
+    async (req, res) => {
+        try {
+            const ids = req.body;
+            await User.updateMany({ _id: { $in: ids } }, { isBlock: false });
+            res.status(200).json({
+                message: 'ok'
+            })
         } catch (e) {
             res.status(500).json({
                 message: 'Error. Try again'

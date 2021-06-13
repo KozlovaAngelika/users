@@ -21,7 +21,7 @@ export const Table = (props) => {
           <Col md={2}>
             <span>Name</span>
           </Col>
-          <Col md={3}>
+          <Col md={2}>
             <span>Email</span>
           </Col>
           <Col md={2}>
@@ -29,6 +29,9 @@ export const Table = (props) => {
           </Col>
           <Col md={2}>
             <span>Last login date</span>
+          </Col>
+          <Col md={1}>
+            <span>Status</span>
           </Col>
         </Row>
         {userElements}

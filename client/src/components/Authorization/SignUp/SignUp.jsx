@@ -8,6 +8,8 @@ import { useHttp } from "../../../hooks/http.hook";
 import style from "./SignUp.module.scss";
 import { useHistory } from "react-router-dom";
 import { Notice } from "../Notice/Notice";
+import { sha3_256 } from "js-sha3";
+
 
 export const SignUp = () => {
   const history = useHistory();
@@ -23,7 +25,8 @@ export const SignUp = () => {
   };
   const signUpHandler = async (event) => {
     try {
-      const data = await request("/api/auth/register", "POST", { ...form });
+      form.password = sha3_256(form.password);
+      await request("/api/auth/register", "POST", { ...form });
       history.push("/sign_in");
     } catch (e) {
       setShow(true);

@@ -1,7 +1,4 @@
 import {
-    JsonWebTokenError
-} from "jsonwebtoken";
-import {
     useCallback,
     useState,
     useEffect
@@ -11,12 +8,12 @@ export const useAuth = () => {
     const [token, setToken] = useState(null);
     const [userId, setUserId] = useState(null);
     const login = useCallback((jwtToken, id) => {
-        setToken(jwtToken);
-        setUserId(id);
         localStorage.setItem(storageName, JSON.stringify({
             userId: id,
             token: jwtToken
         }))
+        setToken(jwtToken);
+        setUserId(id);
     })
     const logout = useCallback(() => {
         setToken(null);
