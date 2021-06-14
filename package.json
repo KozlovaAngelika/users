@@ -8,7 +8,8 @@
     "start": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon app.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "npm run build"
   },
   "author": "Kozlova Angelika <kozlovaangelika09@gmail.com>",
   "license": "ISC",
