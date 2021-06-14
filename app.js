@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import {
     authRouter
 } from "./routes/auth.routes.js";
-const PORT = config.get('port') || 3000;
+const PORT = process.env.PORT || config.get('port') || 3000;
 const app = express();
 
 app.use(express.json({
