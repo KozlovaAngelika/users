@@ -8,12 +8,19 @@ export const Table = (props) => {
   const userElements = props.users.map((user) => {
     return <User user={user} key={user._id}></User>;
   });
+  const [isSelectedAll, setSelecterAll] = useState(false)
+  const selectAllHandler = () => {
+    props.users.forEach(elem => {
+      setSelecterAll(!isSelectedAll)
+      elem.checked = !isSelectedAll;
+    });
+  }
   return (
     <Row className={style.container}>
       <Col>
         <Row className={style.tableHead}>
           <Col md={1}>
-            <span>Choose</span>
+            <input type="checkbox" onChange={selectAllHandler} checked={isSelectedAll}></input>
           </Col>
           <Col md={2}>
             <span>Id</span>
@@ -36,6 +43,6 @@ export const Table = (props) => {
         </Row>
         {userElements}
       </Col>
-    </Row>
+    </Row >
   );
 };

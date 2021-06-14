@@ -1,9 +1,9 @@
 @import "./../../../App.scss";
 .user{
-    background-color: #eee;
+    background-color: $table-row;
     transition: all 0.3s ease;
     &:hover{
-        background-color: rgb(177, 177, 177);
+        background-color: $table-row-hover;
     }
     margin: 5px;
     div{

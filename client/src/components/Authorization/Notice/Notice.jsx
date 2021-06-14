@@ -1,7 +1,6 @@
 import React from "react";
-import { useContext } from "react";
-import { NoticeContext } from "../../../context/NoticeContext";
 import { Toast } from "react-bootstrap";
+
 export const Notice = (props) => {
   return (
     <Toast

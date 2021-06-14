@@ -1,19 +1,18 @@
 @import "~bootstrap/scss/bootstrap";
+
 $bg:#F8F7FC;
 $main:#0057BE;
 $button:#0057BE;
 $button-hover: rgba(0, 87, 190, 0.1);
 $error:rgb(221, 58, 58);
+$table-row:#eee;
+$table-row-hover:#a3a3a3;
+
 body{
     background-color:$bg;
-    // overflow-x: hidden;
+    overflow-x: hidden;
 }
-// h1{
-//     margin-bottom: 50px;
-//     text-align: center;
-//     color:$main;
-//     font-size: 40px;
-// }
+
 a { 
     padding: 6px;
     color:$button;
@@ -25,10 +24,10 @@ a {
 
 .button{
     min-width: 80px;
+    margin-bottom: 15px;
     background-color: $button;
     border-color: $button-hover;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    margin-bottom: 15px;
     &:hover{
             background-color: $button-hover;
             border-color: $button-hover;
@@ -40,34 +39,34 @@ form {
     position: relative;
     max-width: 650px;
     height: 390px;
+    padding: 35px;
     margin: 0 auto 20px auto;
     border-radius: 20px;
-    padding: 35px;
     box-shadow: 0 0 10px $main;
 }
 .toast{
-position: fixed;
-right: 25px;
-bottom: 25px;
-box-shadow: 0 0 10px $error;
-border-radius: 15px;
-min-width: 250px;
-}
-.toast-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    min-width: 250px;
     border-radius: 15px;
-}
+    box-shadow: 0 0 10px $error;
+    }
+    .toast-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 15px;
+    }
 .fade{
     border-radius: 15px;
 }
 .card{
     position: relative;
-    box-shadow: 0 0 10px $main;
-    border-radius: 20px;
     max-width: 650px;
     padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px $main;
     &::after{
         position: absolute;
         left: 50%;

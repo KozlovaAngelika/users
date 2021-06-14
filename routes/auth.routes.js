@@ -168,7 +168,7 @@ authRouter.get('/users', [],
             })
         }
     })
-authRouter.post('/users/block', [],
+authRouter.lock('/users', [],
     async (req, res) => {
         try {
             const ids = req.body;
@@ -182,7 +182,7 @@ authRouter.post('/users/block', [],
             })
         }
     })
-authRouter.post('/users/unblock', [],
+authRouter.unlock('/users', [],
     async (req, res) => {
         try {
             const ids = req.body;

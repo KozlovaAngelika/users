@@ -30,17 +30,17 @@ export const Users = () => {
   };
   const blockUsersHandler = async () => {
     const usersForBlock = getCheckedUsers();
-    await request("/api/auth/users/block", "POST", usersForBlock);
+    await request("/api/auth/users", "LOCK", usersForBlock);
     getUsers();
   }
   const unblockUsersHandler = async () => {
     const usersForUnblock = getCheckedUsers();
-    await request("/api/auth/users/unblock", "POST", usersForUnblock);
+    await request("/api/auth/users", "UNLOCK", usersForUnblock);
     getUsers();
   }
   return (
     <Container className={style.users}>
-      <ControlPanel deleteUsers={deleteUsersHandler} blockUsersHandler={blockUsersHandler} unblockUsersHandler={unblockUsersHandler}></ControlPanel>
+      <ControlPanel deleteUsers={deleteUsersHandler} blockUsersHandler={blockUsersHandler} unblockUsersHandler={unblockUsersHandler} loading={loading}></ControlPanel>
       <Table users={users ? users : []}></Table>
     </Container>
   );
