@@ -11,7 +11,7 @@ export const User = (props) => {
   };
   useEffect(() => {
     setCheck(props.user.checked);
-  })
+  }, [props.user.checked])
   return (
     <Row className={style.user}>
       <Col md={1} className={style.choose}>

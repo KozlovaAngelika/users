@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Button, Form, Toast } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useHttp } from "../../../hooks/http.hook";
 import style from "./SignIn.module.scss";
@@ -13,12 +13,12 @@ import { sha3_256 } from "js-sha3";
 export const SignIn = () => {
   const auth = useContext(AuthContext);
   const [show, setShow] = useState(false);
-  const { loading, request, error, clearError } = useHttp();
+  const { loading, request, error } = useHttp();
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-  const storageName = 'userData';
+
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };

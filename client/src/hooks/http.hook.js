@@ -30,6 +30,7 @@ export const useHttp = () => {
             if (!response.ok) {
                 if (response.status === 401) {
                     auth.logout();
+                    return;
                 }
                 throw new Error(data.message || 'Something went wrong.')
             }
@@ -38,6 +39,7 @@ export const useHttp = () => {
         } catch (e) {
             setLoading(false);
             setError(e.message);
+            throw e;
         }
     }, [])
     const clearError = () => {

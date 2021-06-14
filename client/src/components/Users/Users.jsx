@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
-import ReactDOM from "react";
+import React, { useState, useEffect } from "react";
 import { ControlPanel } from "./ControlPanel/ControlPanel";
 import style from "./Users.module.scss";
 import { Table } from "./Table/Table";
@@ -8,9 +7,14 @@ import { Container } from "react-bootstrap";
 
 export const Users = () => {
   const [users, setUsers] = useState([]);
-  const { loading, request, error, clearError } = useHttp();
+  const { loading, request } = useHttp();
   const getUsers = async () => {
     const data = await request("/api/auth/users");
+    if (data) {
+      data.forEach((user => {
+        user.checked = false;
+      }))
+    }
     setUsers(data);
   };
   const [isSelectedAll, setSelectedAll] = useState(false)

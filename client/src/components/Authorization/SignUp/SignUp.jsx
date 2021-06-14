@@ -13,7 +13,7 @@ import { sha3_256 } from "js-sha3";
 
 export const SignUp = () => {
   const history = useHistory();
-  const { loading, request, error, clearError } = useHttp();
+  const { loading, request, error } = useHttp();
   const [show, setShow] = useState(false);
   const [form, setForm] = useState({
     name: "",
