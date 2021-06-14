@@ -13,6 +13,7 @@ export const Users = () => {
     const data = await request("/api/auth/users");
     setUsers(data);
   };
+  const [isSelectedAll, setSelectedAll] = useState(false)
   useEffect(() => {
     getUsers();
   }, []);
@@ -27,21 +28,24 @@ export const Users = () => {
     const usersIdForDelete = getCheckedUsers();
     await request("/api/auth/users", "DELETE", usersIdForDelete);
     getUsers();
+    setSelectedAll(false);
   };
   const blockUsersHandler = async () => {
     const usersForBlock = getCheckedUsers();
     await request("/api/auth/users", "LOCK", usersForBlock);
     getUsers();
+    setSelectedAll(false);
   }
   const unblockUsersHandler = async () => {
     const usersForUnblock = getCheckedUsers();
     await request("/api/auth/users", "UNLOCK", usersForUnblock);
     getUsers();
+    setSelectedAll(false);
   }
   return (
     <Container className={style.users}>
       <ControlPanel deleteUsers={deleteUsersHandler} blockUsersHandler={blockUsersHandler} unblockUsersHandler={unblockUsersHandler} loading={loading}></ControlPanel>
-      <Table users={users ? users : []}></Table>
+      <Table users={users ? users : []} isSelectedAll={isSelectedAll} setSelecterAll={setSelectedAll}></Table>
     </Container>
   );
 };
