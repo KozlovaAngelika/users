@@ -107,7 +107,7 @@ authRouter.post('/register',
     })
 
 authRouter.post('/login', [
-    check('email', 'email isn`t correct').normalizeEmail().isEmail(),
+    check('email', 'email isn`t correct').normalizeEmail({ "gmail_remove_dots": false }).isEmail(),
     check('password', 'Enter your password').exists()
 ],
     async (req, res) => {
